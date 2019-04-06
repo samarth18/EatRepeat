@@ -13,15 +13,24 @@ const {
   editPlayer,
   editPlayerPage
 } = require("./routes/player");
-const port = 2000;
+const {
+  registerUserPage,
+  registerUser,
+  loginUserPage,
+  loginUser
+} = require("./routes/authenticate");
+const {
+  showMenu
+} = require("./routes/menu");
+const port = 5000;
 
 // create connection to database
 // the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
-  database: "socka"
+  password: "Khushboo_1811",
+  database: "foodDelivery"
 });
 
 // connect to database
@@ -44,11 +53,17 @@ app.use(fileUpload()); // configure fileupload
 
 // routes for the app
 
+app.get("/register", registerUserPage);
+app.get("/login", loginUserPage);
 app.get("/", getHomePage);
 app.get("/add", addPlayerPage);
 app.get("/edit/:id", editPlayerPage);
 app.get("/delete/:id", deletePlayer);
 app.post("/add", addPlayer);
+app.post("/edit/:id", editPlayer);
+app.get("/menu/:id", showMenu);
+app.post("/register", registerUser);
+app.post("/login", loginUser);
 app.post("/edit/:id", editPlayer);
 
 // set the app to listen on the port

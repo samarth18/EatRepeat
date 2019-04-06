@@ -82,8 +82,8 @@ module.exports = {
     });
   },
   editPlayerPage: (req, res) => {
-    let playerId = req.params.id;
-    let query = "SELECT * FROM `players` WHERE id = '" + playerId + "' ";
+    let restID = req.params.id;
+    let query = "SELECT * FROM `Restaurant` WHERE rest_ID = '" + restID + "' ";
     db.query(query, (err, result) => {
       if (err) {
         return res.status(500).send(err);

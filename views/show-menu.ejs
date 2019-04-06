@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<% include partials/header.ejs %>
+<html>
+    <body>
+        <div class="table-wrapper">
+            <table class="table table-hovered">
+                        <thead class="thead-light">
+                            <tr>
+                            <th scope="col"> </th>
+                                <th scope="col">Item</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Price($)</th>
+                                <th scope="col">Rating</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% restaurant.forEach((rest, index) => { %>
+                                <tr>
+                                <td><%=  %></td>
+                                    <td><%= rest.item_name %></td>
+                                    <td><%= rest.item_description %></td>
+                                    <td><%= rest.price %></td>
+                                    <td><%= rest.rating %></td>
+                                    
+                                    <td>
+                                        <!--<a href="/menu/<%= restaurant.rest_id %>" target="_blank" rel="noopener" class="btn btn-sm btn-success">Add</a>-->
+                                        <button onclick="myFunction()" class="btn btn-sm btn-success" >Add</button>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                    <script>
+                        function myFunction() {
+                          var x = document.createElement("INPUT");
+                          x.setAttribute("type", "number");
+                          x.setAttribute("value", "0");
+                          document.getElementById("add-btn").appendChild(x);
+                        }
+                        </script>
+        </div>
+        
+    </body>
+</html>
