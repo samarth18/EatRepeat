@@ -1,4 +1,7 @@
 <% include partials/header.ejs %>
+<a style="margin-right:10px;margin-top:10px;"class="float-right" href="/orders" title="Logout"
+         >View Orders</a
+       >
     <div class="table-wrapper">
         <% if (restaurants.length > 1) {%>
             <table class="table table-hovered">
@@ -9,36 +12,25 @@
                         <th scope="col">Restaurant</th>
                         <th scope="col">Rating</th>
                         <th scope="col"> </th>
-                        <!--
-                        <th scope="col">Position</th>
-                        <th scope="col">Number</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Action</th>
-                        -->
                     </tr>
                 </thead>
                 <tbody>
-                    <% restaurants.forEach((player, index) => { %>
+                    <% restaurants.forEach((rest, index) => { %>
                         <tr>
                             <th scope="row"><%= %></th>
-                            <th scope="row"><%= player.rest_id %></th>
-                            <!--
-                            <td><img src="/assets/img/<%= player.image %>" class="rounded-circle player-img" alt=""></td>
-                            -->
-                            <td><%= player.rest_name %></td>
-                            <td><%= player.rating %></td>
-                            
+                            <th scope="row"><%= rest.rest_id %></th>
+                            <td><%= rest.rest_name %></td>
+                            <td><%= rest.rating %></td>
                             <td>
-                                <a href="/menu/<%= player.rest_id %>" target="_self" rel="noopener" class="btn btn-sm btn-success">Order</a>
-                                <!--
-                                <a href="/delete/<%= player.id %>" class="btn btn-sm btn-danger">Delete</a> -->
+                                <a href="/menu/<%= rest.rest_id %>" target="_self" rel="noopener" class="btn btn-sm btn-success">Order</a>
+                                
                             </td>
                         </tr>
                     <% }) %>
                 </tbody>
             </table>
         <% } else { %>
-            <p class="text-center">No players found. Go <a href="/add" >here</a> to add players.</p>
+            <p class="text-center">No restaurants found. Go <a href="/add" >here</a> to add players.</p>
         <% } %>
     </div>
 </div>

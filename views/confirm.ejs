@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<% include partials/header.ejs %>
+<html>
+    <body>
+        <div class="table-wrapper" style="padding-right: 200px; padding-left: 200px">
+            <h5>Confirm the items you want to order:</h5>
+            <div class="table1" style="margin-bottom: 100px">
+            <table class="table table-hovered">
+                        <thead class="thead-light">
+                            <tr>
+                            <th scope="col"> </th>  
+                                <th scope="col">Item Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total Price($)</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% items.forEach((item, index) => { %>
+                                <tr>
+                                    <td><%=  %></td>
+                                    <td style="display:none"><%= item.itemID %></td>
+                                    <td><%= item.name %></td>
+                                    <td><%= item.quantity %></td>
+                                    <td><%= item.price %></td>
+                                    <td>
+                                        <button onclick="funcCall(<%= index %>)" class="btn-sm" id=<%=index %> 
+                                            style="cursor: pointer">Confirm item</button>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                            </tbody>
+                        </table>
+                        <div class="edit-button" style="float:right">
+                <a href="/menu/<%= restaurant %>" style="width: 100px; height: 40px" class="btn btn-outline-dark mr-2">Edit Order</a>
+            </div>
+            </div>
+            <div style="position: relative; left: 32%">
+            <label for="instructions">Special Instructions (if any):</label>
+            <input name="inputs" id = "instr" style="width: 300px" type="text" class="form-control" name="instructions" id="instructions" placeholder="Ex. No peanuts">
+            </div>
+            <button disabled id="confirm-order-button" onclick="proceed()" class="btn btn-success btn-lg" style="float:right; margin-top:100px">Confirm Items</button>
+            <a href="/restaurants" class="btn btn-lg btn-danger mr-2" style="float:right; margin-top:100px">Cancel</a>
+        
+        <script>
+            var orderdetails = {};
+            function funcCall(index) {
+                document.getElementById("confirm-order-button").disabled=false;
+                var temp = document.getElementById("temp"+index);
+                var key = document.getElementsByTagName("TR")[index+1].getElementsByTagName("TD")[1].innerHTML;
+                orderdetails[key] = new Array();
+                orderdetails[key].push(document.getElementsByTagName("TR")[index+1].getElementsByTagName("TD")[3].innerHTML);
+                orderdetails[key].push(document.getElementsByTagName("TR")[index+1].getElementsByTagName("TD")[2].innerHTML);
+                orderdetails[key].push(document.getElementsByTagName("TR")[index+1].getElementsByTagName("TD")[4].innerHTML);     
+                document.getElementById(index).disabled=true;   
+            }
+            function proceed() {
+                var form = document.createElement('form');
+                form.setAttribute('method', 'post');
+                var inp = document.createElement("input");
+                var s = JSON.stringify(orderdetails);
+                inp.setAttribute('name',s);
+                inp.style.visibility='hidden';
+                form.setAttribute('enctype','application/x-www-form-urlencoded');
+                form.appendChild(inp);
+                form.style.visibility = 'hidden';
+                document.body.appendChild(form);
+                form.submit();
+            }
+        </script>
+        </div>
+    </body>
+</html>

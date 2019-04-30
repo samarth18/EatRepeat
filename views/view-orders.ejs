@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<% include partials/header.ejs %>
+    <div class="table-wrapper">
+        <% if (orders.length > 0) {%>
+            <table class="table table-hovered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Restaurant</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% var id; %>
+                    <% for(var i=0; i<orders.length;) { %>
+                    <% id = orders[i].ID  %>
+                        <tr>
+                            <td><%= orders[i].ID %></td>
+                            <td><%= orders[i].restaurantName %></td>
+                            <td><%= orders[i].price %></td>
+                            <td><%= orders[i].order_status %></td>
+                            <% while(i<orders.length && orders[i].ID === id) { %>
+                            <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><%= orders[i].item_name %></td>
+                            <td><%= orders[i].quantity %></td>
+                            <% i++;  %>
+                            </tr>
+                    <% } %>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p class="text-center">No orders found. Go <a href="/restaurants" >here</a> to add an order.</p>
+        <% } %>
+    </div>
+</div>
+</body>
+</html>

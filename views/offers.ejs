@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<% include partials/header.ejs %>
+<html>
+    <body>
+        <% if (message != '') { %>
+            <p class="text-center text-danger"><%= message %></p>
+        <% } %>
+        <a style="margin-right:10px;margin-top:10px;"class="float-right" href="/orders" title="Logout"
+            >View Orders</a>
+        <div class="table-wrapper" style="padding-right: 200px; padding-left: 200px">
+            <p class="text-center" style="margin-top: 30px">Your Order Summary:</p>
+            <div class="table1" style="margin-bottom: 100px">
+            <table class="table table-hovered">
+                        <thead class="thead-light">
+                            <tr>
+                            <th scope="col"> </th>  
+                                <th scope="col">Item Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total Price($)</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% items.forEach((item, index) => { %>
+                                <tr>
+                                <td><%=  %></td>
+                                    <td style="display:none"><%= item.itemID %></td>
+                                    <td><%= item.name %></td>
+                                    <td><%= item.quantity %></td>
+                                    <td><%= item.price %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+            </table>
+            <p class="text-center">Order Total: $<%= totalPayment.toFixed(2) %> </p>
+            </div>
+            <form id="offers_form" class="offers-form" action="" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="form-group" style="margin-top:20px">
+                            <label for="fullname">Do you want to add a coupon?</label>
+                        <input type="text" class="form-control" name="offers" id="offers" placeholder="Enter coupon code">
+                    </div>           
+                <button type="submit" class="btn btn-primary" style="visibility: visible">Add</button>
+                <!--<a href="/restaurants" class="btn btn-primary float-left" onclick="document.getElementById('my_form').submit();">Sign Up</a>-->
+            </form>
+            <div style="padding-left:20vw; padding-right:20vw">
+             <a href="/payment" class="btn btn-block btn-outline-success" style="float:right; margin-top:20px">Proceed</a>
+        </div>              
+        </div>
+        
+    </body>
+</html>

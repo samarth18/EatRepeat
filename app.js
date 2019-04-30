@@ -5,14 +5,11 @@ const mysql = require("mysql");
 const path = require("path");
 const app = express();
 
-const { getHomePage } = require("./routes/index");
 const {
-  addPlayerPage,
-  addPlayer,
-  deletePlayer,
-  editPlayer,
-  editPlayerPage
-} = require("./routes/player");
+  getHomePage,
+  getRestaurants,
+  getOrdersPage
+} = require("./routes/index");
 const {
   registerUserPage,
   registerUser,
@@ -20,16 +17,28 @@ const {
   loginUser
 } = require("./routes/authenticate");
 const {
-  showMenu
-} = require("./routes/menu");
+  userDetailsPage,
+  userDetailsUpdate,
+  paymentPage,
+  checkoutUser,
+  getConfirmPage,
+  confirmOrder,
+  cancelOrder,
+  offersPage,
+  offersUpdate
+} = require("./routes/checkout");
+const { showMenu } = require("./routes/menu");
 const port = 5000;
+global.restaurant = "";
+global.customer = "";
+global.order = "";
 
 // create connection to database
 // the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection({
   host: "localhost",
-  user: "root",
-  password: "Khushboo_1811",
+  user: "", // Please enter username and password here
+  password: "",
   database: "foodDelivery"
 });
 
@@ -56,16 +65,21 @@ app.use(fileUpload()); // configure fileupload
 app.get("/register", registerUserPage);
 app.get("/login", loginUserPage);
 app.get("/", getHomePage);
-app.get("/add", addPlayerPage);
-app.get("/edit/:id", editPlayerPage);
-app.get("/delete/:id", deletePlayer);
-app.post("/add", addPlayer);
-app.post("/edit/:id", editPlayer);
 app.get("/menu/:id", showMenu);
 app.post("/register", registerUser);
 app.post("/login", loginUser);
-app.post("/edit/:id", editPlayer);
-
+app.get("/orders", getOrdersPage);
+app.post("/menu/:id", checkoutUser);
+app.get("/restaurants", getRestaurants);
+app.get("/confirm", getConfirmPage);
+app.post("/confirm", confirmOrder);
+app.get("/payment", paymentPage);
+app.post("/payment", cancelOrder);
+app.get("/user-details", userDetailsPage);
+app.post("/user-details", userDetailsUpdate);
+app.get("/offers", offersPage);
+app.post("/offers", offersUpdate);
+app.get("");
 // set the app to listen on the port
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`);

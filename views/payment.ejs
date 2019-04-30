@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<% include partials/header.ejs %>
+<html>
+    <body>
+        <a style="margin-right:10px;margin-top:10px;"class="float-right" href="/orders" title="Logout"
+            >View Orders</a>
+        <div class="table-wrapper" style="padding-right: 200px; padding-left: 200px">
+            <h2 class="text-center">Your order has been placed!</h2>
+            <p class="text-center" style="margin-top: 30px">Your Order Summary:</p>
+            <div class="table1" style="margin-bottom: 100px">
+            <table class="table table-hovered">
+                        <thead class="thead-light">
+                            <tr>
+                            <th scope="col"> </th>  
+                                <th scope="col">Item Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total Price($)</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% items.forEach((item, index) => { %>
+                                <tr>
+                                <td><%=  %></td>
+                                    <td style="display:none"><%= item.itemID %></td>
+                                    <td><%= item.name %></td>
+                                    <td><%= item.quantity %></td>
+                                    <td><%= item.price %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+            </table>
+            </div>
+            <div class="table1" style="margin-bottom: 100px">
+               <table class="table table-hovered">
+                        <thead class="thead-light">
+                            <tr>
+                            <th scope="col"> </th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% customerDetails.forEach((customer, index) => { %>
+                                <tr>
+                                <td><%=  %></td>
+                                    <td><%= customer.customer_name %></td>
+                                    <td><%= customer.address %></td>
+                                    <td><%= customer.phone %></td>                
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                </table>
+                <p class="text-center">Order Total: $<%= totalPayment.toFixed(2) %> </p>
+
+                <div class="deliverDetails" style="text-align: center">
+                    <% deliveryPerson.forEach((employee, index) => { %>
+                        <td><%=  %></td>
+                            <p>The delivery person assigned for your order is
+                            <b><%= employee.emp_name %></b>
+                            . You can reach him at 
+                            <b><%= employee.phone_no %></b>.</p>          
+                        </tr>
+                    <% }) %>
+                </div>
+            </div>
+            <div style="padding-left:20vw; padding-right:20vw">
+            <a href="/restaurants" class="btn btn-block btn-outline-success" style="float:right; margin-top:20px">Go back to Homepage</a>
+            <button id="cancel-order-button" onclick="cancel()" class="btn btn-outline-danger btn-block" style="float:right; margin-top:10px">Cancel Order</button>
+        </div>
+                <script>
+                function cancel() {
+                var form = document.createElement('form');
+                form.setAttribute('method', 'post');
+                var inp = document.createElement("input");
+                //var s = JSON.stringify(orderdetails);
+                //inp.setAttribute('name',s);
+                inp.style.visibility='hidden';
+                form.setAttribute('enctype','application/x-www-form-urlencoded');
+                form.appendChild(inp);
+                form.style.visibility = 'hidden';
+                document.body.appendChild(form);
+                //console.log(inp.name);
+                if(window.confirm("Are you sure you want to cancel this order?")) {
+                    alert("Order cancelled!");
+                    form.submit();
+                }
+            }
+                </script>
+        </div>
+        
+    </body>
+</html>

@@ -12,33 +12,68 @@
                                 <th scope="col">Price($)</th>
                                 <th scope="col">Rating</th>
                                 <th scope="col"></th>
+                                <th scope="col">Qty</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <% restaurant.forEach((rest, index) => { %>
+                        <tbody id="one">
+                            <% restaurant.forEach((item, index) => { %>
                                 <tr>
                                 <td><%=  %></td>
-                                    <td><%= rest.item_name %></td>
-                                    <td><%= rest.item_description %></td>
-                                    <td><%= rest.price %></td>
-                                    <td><%= rest.rating %></td>
-                                    
+                                    <td style="display:none"><%= item.item_ID %></td>
+                                    <td><%= item.item_name %></td>
+                                    <td><%= item.item_description %></td>
+                                    <td><%= item.price %></td>
+                                    <td><%= item.rating %></td>
                                     <td>
-                                        <!--<a href="/menu/<%= restaurant.rest_id %>" target="_blank" rel="noopener" class="btn btn-sm btn-success">Add</a>-->
-                                        <button onclick="myFunction()" class="btn btn-sm btn-success" >Add</button>
+                                        <button id=<%=index %> onclick="myFunction(<%= index %>)" class="btn btn-sm btn-outline-success" id="add-qty-btn">Add</button>
                                     </td>
                                 </tr>
                             <% }) %>
                         </tbody>
                     </table>
                     <script>
-                        function myFunction() {
-                          var x = document.createElement("INPUT");
+                        var orderdetails = {};
+                        function myFunction(index) {
+                          var x = document.createElement("input");
                           x.setAttribute("type", "number");
                           x.setAttribute("value", "0");
-                          document.getElementById("add-btn").appendChild(x);
+                          x.setAttribute("min","0");
+                          x.setAttribute("style","width:40px; margin-top:10px;");
+                          x.id = "temp"+index;
+                          x.setAttribute("onchange", "tempFunction("+index+")");
+                          document.getElementsByTagName("TR")[index+1].appendChild(x);
+                          document.getElementById(index).disabled = true;
+                        }
+
+                        function tempFunction(index){
+                            var temp = document.getElementById("temp"+index);
+                            var key = document.getElementsByTagName("TR")[index+1].getElementsByTagName("TD")[1].innerHTML;
+                            orderdetails[key] = new Array();
+                            orderdetails[key].push(temp.value);
+                            orderdetails[key].push(document.getElementsByTagName("TR")[index+1].getElementsByTagName("TD")[2].innerHTML);
+                            orderdetails[key].push(document.getElementsByTagName("TR")[index+1].getElementsByTagName("TD")[4].innerHTML);
+                        }
+
+                        function proceed() {
+                            var form = document.createElement('form');
+                            form.setAttribute('method', 'post');
+                            var inp = document.createElement("input");
+                            var s = JSON.stringify(orderdetails);
+                            if(s === '{}'){
+                                alert("You have no items!");
+                            }
+                            else{
+                            inp.setAttribute('name',s);
+                            form.setAttribute('enctype','application/x-www-form-urlencoded');
+                            form.appendChild(inp);
+                            document.body.appendChild(form);
+                            form.submit();
+                            }
                         }
                         </script>
+                        <div style="padding-left: 30vw; padding-right: 30vw; margin-top: 30px">
+                        <button class="btn btn-block btn-success" onclick="proceed();">Proceed to checkout</button>
+                        </div>
         </div>
         
     </body>

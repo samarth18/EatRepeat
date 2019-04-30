@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<% include partials/header.ejs %>
+<html>
+<style>
+.user-details-form{
+    margin-top:0px;
+}
+</style>
+    <body>
+        <div class="table-wrapper" style="padding-right: 200px; padding-left: 200px">
+            <h5>Confirm your personal details: </h5>
+            <div class="table1" style="margin-bottom: 100px" id="user-inputs">
+               <table class="table table-hovered" id="customer-table">
+                        <thead class="thead-light">
+                            <tr>
+                            <th scope="col"> </th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% customerDetails.forEach((customer, index) => { %>
+                                <tr>
+                                <td><%=  %></td>
+                                    <td><%= customer.customer_name %></td>
+                                    <td><%= customer.address %></td>
+                                    <td><%= customer.phone %></td>                
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                </table>
+                <button style="margin-top:10px; margin-bottom:0px;" id="edit-details-button" style="float: left" class="btn btn-sm btn-success" onclick="editDetails();">Edit details</button>
+            </div>
+            <form id="my_form" class="user-details-form" style = "visibility: hidden" action="" method="post" enctype="application/x-www-form-urlencoded">
+                
+                    
+                    <div class="form-group" style="margin-top:20px">
+                            <label for="fullname">Full Name</label>
+                        <input type="text" class="form-control" name="fullname" id="fullname" value="<%= customerDetails[0].customer_name %>">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" name="address" id="address" value="<%= customerDetails[0].address %>">
+                    </div>
+                    <div class="form-group" >
+                            <label for="phone">Phone Number</label>
+                        <input type="text" class="form-control" name="phone" id="phone" value="<%= customerDetails[0].phone %>">
+                    </div>
+                
+                <button type="submit" class="btn btn-primary" style="visibility: visible">Confirm</button>
+                <!--<a href="/restaurants" class="btn btn-primary float-left" onclick="document.getElementById('my_form').submit();">Sign Up</a>-->
+            </form>
+             
+        </div>
+        <script>
+        function editDetails(){
+            //var table = document.getElementById("customer-table");
+            //table.style.disabled = true;
+            document.getElementById('edit-details-button').disabled=true;
+            document.getElementById('my_form').style.visibility='visible';
+            // /document.getElementById('edit-details-button').style.visibility='hidden';
+            }
+        </script>
+    </body>
+</html>

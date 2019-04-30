@@ -13,28 +13,30 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <!--<link rel="stylesheet" href="/assets/css/custom.css">-->
+    <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
     <title><%= title %></title>
   </head>
   <style>
     .table-wrapper {
       margin-top: 50px;
     }
-
-    .player-img {
-      width: 40px;
-      height: 40px;
+    body {
+        font-family: 'Karla', sans-serif;
+      }
+    #home-tag{
+      font-weight: bold;
+      color: green;
     }
-
-    .add-player-form {
-      margin-top: 50px;
+    #logout-tag{
+      font-weight: bold;
+      color: green;
     }
   </style>
   <body>
     <div class="page-wrapper">
       <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1"><a href="/">Welcome to Foodo!</a></span>
-        <a class="float-right" href="/" title="Logout"
+        <span class="navbar-brand mb-0 h1"><a id="home-tag" href="/restaurants">Welcome to EatRepeat!</a></span>
+        <a id="logout-tag" class="float-right" href="/" title="Logout"
           >Logout</a
         >
       </nav>
